@@ -8,4 +8,10 @@ useradd -u $USER_ID -o -m user
 groupmod -g $GROUP_ID user
 export HOME=/home/user
 
+mkdir -p ~/.ruby
+cp -a /usr/local/dotfiles ~/.dotfiles
+sh ~/.dotfiles/init.sh
+
+chown -R user:user ~/
+
 exec /usr/sbin/gosu user "$@"

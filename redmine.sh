@@ -1,7 +1,7 @@
 #!/bin/bash
 
-bundle install
+bin/bundle install
 
-rake db:create
-rake db:migrate
-rake redmine:plugins:migrate
+bin/rake db:create
+bin/rake db:migrate
+bin/rake redmine:plugins:migrate
