@@ -1,12 +1,9 @@
 services:
   redmine:
-    build: .
     volumes:
       - ../redmine:/usr/src/redmine
       - ../plugins:/usr/src/redmine/plugins
       - bundle-data:/usr/local/bundle
-    env_file:
-      - ./.user.env
     environment:
       RAILS_ENV: ${RAILS_ENV:-development}
     command: /bin/sh -c "while sleep 1000; do :; done"
@@ -14,6 +11,10 @@ services:
       - db
     ports:
       - 3000:3000
+    build:
+      context: .
+      args:
+        LOCAL_UID: ${LOCAL_UID}
   db:
     image: postgres:13.3
     env_file:
