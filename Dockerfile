@@ -3,16 +3,21 @@ FROM debian:bullseye-slim
 ENV GEM_HOME=/usr/local/bundle
 ENV BUNDLE_APP_CONFIG=/usr/local/bundle
 
-RUN apt-get update -qq && apt-get install -y git tig screen vim dialog ruby build-essential postgresql-client build-essential libpq-dev ruby-dev \
+RUN apt-get update -qq && apt-get install -y curl git tig screen vim dialog ruby build-essential postgresql-client build-essential libpq-dev ruby-dev \
                           imagemagick ghostscript \
-                       && mkdir -p /usr/local/dotfiles
+                       && mkdir -p /usr/local/dotfiles && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 WORKDIR /usr/src/redmine
 
 COPY redmine.sh /usr/local/bin/
 COPY ./dotfiles /usr/local/dotfiles
 
 ARG LOCAL_UID
-RUN chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && cp -a /usr/local/dotfiles /home/user/.dotfiles \
+RUN apt-get update -qq && apt-get install -y nodejs yarn && \
+    chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && cp -a /usr/local/dotfiles /home/user/.dotfiles \
                        && chown -R user:user /home/user
 USER user
 
