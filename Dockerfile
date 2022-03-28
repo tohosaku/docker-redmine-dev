@@ -17,8 +17,12 @@ COPY ./dotfiles /usr/local/dotfiles
 
 ARG LOCAL_UID
 RUN apt-get update -qq && apt-get install -y nodejs yarn && \
-    chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && cp -a /usr/local/dotfiles /home/user/.dotfiles \
-                       && chown -R user:user /home/user
+    chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && cp -a /usr/local/dotfiles /home/user/.dotfiles && \
+    curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb && \
+    dpkg -i ripgrep_13.0.0_amd64.deb && \
+    chown -R user:user /home/user
 USER user
 
-RUN sh /home/user/.dotfiles/init.sh
+RUN sh /home/user/.dotfiles/init.sh && \
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    ~/.fzf/install --all
