@@ -2,4 +2,8 @@
 
 . ./user.sh
 
-LOCAL_UID=${USER_ID} LOCAL_GID=${GROUP_ID} docker compose -f docker-compose.yml -f docker-compose-test.yml $*
+rm -rf ../redmine/tmp/downloads
+mkdir ../redmine/tmp/downloads
+chmod 777 ../redmine/tmp/downloads
+
+LOCAL_UID=${LOCAL_UID} LOCAL_GID=${LOCAL_GID} docker compose -f docker-compose.yml -f docker-compose-test.yml $*

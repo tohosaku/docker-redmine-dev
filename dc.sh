@@ -2,4 +2,4 @@
 
 . ./user.sh
 
-LOCAL_UID=${USER_ID} LOCAL_GID=${GROUP_ID} docker compose $* 
+LOCAL_UID=${LOCAL_UID} LOCAL_GID=${LOCAL_GID} docker compose $* 
