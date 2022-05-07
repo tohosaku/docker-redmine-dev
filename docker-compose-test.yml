@@ -9,6 +9,8 @@ services:
       - chrome
   chrome:
     image: selenium/standalone-chrome-debug:latest
+    volumes:
+      - ../redmine/tmp/downloads:/home/seluser/Downloads
     ports:
       - 4444:4444
       - 5900:5900
