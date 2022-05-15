@@ -1,9 +1,11 @@
 services:
   redmine:
+    hostname: redmine
     volumes:
       - ../redmine:/usr/src/redmine
       - ../plugins:/usr/src/redmine/plugins
       - bundle-data:/usr/local/bundle
+      - home-dir:/home
     environment:
       RAILS_ENV: ${RAILS_ENV:-development}
     command: /bin/sh -c "while sleep 1000; do :; done"
@@ -17,6 +19,7 @@ services:
         LOCAL_UID: ${LOCAL_UID}
   db:
     image: postgres:13.3
+    hostname: postgres
     env_file:
       - ./.dbpass.env
     environment:
@@ -27,3 +30,4 @@ services:
 volumes:
   bundle-data:
   db-data:
+  home-dir:
