@@ -50,4 +50,6 @@ USER user
 
 RUN sh /home/user/.dotfiles/init.sh && \
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
-    ~/.fzf/install --all && bundle config set path '/usr/local/bundle'
+    ~/.fzf/install --all && \
+    curl -sS https://starship.rs/install.sh | sh && \
+    bundle config set path '/usr/local/bundle'
