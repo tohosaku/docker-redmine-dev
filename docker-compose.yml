@@ -5,7 +5,7 @@ services:
       - ../redmine:/usr/src/redmine
       - ../plugins:/usr/src/redmine/plugins
       - bundle-data:/usr/local/bundle
-      - home-dir:/home
+      - ./.cache:/home/user/.cache
     environment:
       RAILS_ENV: ${RAILS_ENV:-development}
     command: /bin/sh -c "while sleep 1000; do :; done"
@@ -30,4 +30,3 @@ services:
 volumes:
   bundle-data:
   db-data:
-  home-dir:

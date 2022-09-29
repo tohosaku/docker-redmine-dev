@@ -7,7 +7,7 @@ RUN apt-get update -qq && \
       curl \
       git \
       tig \
-      screen \
+      tmux \
       vim \
       dialog \
       build-essential \
@@ -38,7 +38,7 @@ RUN apt-get update -qq && \
   && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log \
-     chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && cp -a /usr/local/dotfiles /home/user/.dotfiles && \
+     chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && \
     curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb && \
     dpkg -i ripgrep_13.0.0_amd64.deb && \
     chown -R user:user /home/user
@@ -49,9 +49,11 @@ ENV LANG=C.UTF-8 \
 
 USER user
 
-RUN sh /home/user/.dotfiles/init.sh && \
+RUN rm -rf ~/.dotfiles && cp -a /usr/local/dotfiles ~/.dotfiles && sh ~/.dotfiles/init.sh && \
+    rm -rf ~/bin && mkdir ~/bin && cd ~/bin && \
+    curl -LO https://github.com/arl/gitmux/releases/download/v0.7.10/gitmux_0.7.10_linux_amd64.tar.gz && tar zxvf gitmux_0.7.10_linux_amd64.tar.gz && \
+    mkdir ~/.cache && \
+    cd /usr/src/redmine && \
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install --all && \
-    mkdir ~/bin && curl https://starship.rs/install.sh > ~/install.sh && sh ~/install.sh -y -b ~/bin/ && \
-    rm ~/install.sh && \
     bundle config set path '/usr/local/bundle'
