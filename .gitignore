@@ -2,3 +2,4 @@ database.yml
 .env
 .*.env
 *.dump
+.cache
