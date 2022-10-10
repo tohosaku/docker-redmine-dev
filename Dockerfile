@@ -28,7 +28,6 @@ RUN apt-get update -qq && \
 
 WORKDIR /workspace
 
-COPY redmine.sh /usr/local/bin/
 COPY ./dotfiles /usr/local/dotfiles
 
 ARG LOCAL_UID
@@ -42,7 +41,8 @@ RUN apt-get update -qq && \
      chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && \
     curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb && \
     dpkg -i ripgrep_13.0.0_amd64.deb && \
-    chown -R user:user /home/user
+    chown -R user:user /home/user && \
+    cp /usr/local/dotfiles/redmine.sh /usr/local/bin/ && chmod 755 /usr/local/bin/redmine.sh
 
 ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \
