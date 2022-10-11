@@ -25,7 +25,7 @@ RUN apt-get update -qq && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     echo "deb [signed-by=/usr/share/keyrings/archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-WORKDIR /usr/src/redmine
+WORKDIR /workspace
 
 COPY redmine.sh /usr/local/bin/
 COPY ./dotfiles /usr/local/dotfiles
@@ -53,7 +53,7 @@ RUN rm -rf ~/.dotfiles && cp -a /usr/local/dotfiles ~/.dotfiles && sh ~/.dotfile
     rm -rf ~/bin && mkdir ~/bin && cd ~/bin && \
     curl -LO https://github.com/arl/gitmux/releases/download/v0.7.10/gitmux_0.7.10_linux_amd64.tar.gz && tar zxvf gitmux_0.7.10_linux_amd64.tar.gz && \
     mkdir ~/.cache && \
-    cd /usr/src/redmine && \
+    cd /workspace && \
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install --all && \
     bundle config set path '/usr/local/bundle'

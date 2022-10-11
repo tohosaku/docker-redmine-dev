@@ -1,0 +1,31 @@
+services:
+  rails:
+    hostname: rails
+    volumes:
+      - ../sample-app:/workspace
+      - bundle-data:/usr/local/bundle
+      - ./.cache:/home/user/.cache
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-development}
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    depends_on:
+      - railsdb
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      args:
+        LOCAL_UID: ${LOCAL_UID}
+  railsdb:
+    image: postgres:13.3
+    hostname: postgres
+    env_file:
+      - ./.dbpass.env
+    environment:
+      POSTGRES_DB: railsdb
+      POSTGRES_USER: postgres
+    volumes:
+      - railsdb-data:/var/lib/postgresql/data
+volumes:
+  bundle-data:
+  railsdb-data:
