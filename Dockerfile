@@ -21,8 +21,9 @@ RUN apt-get update -qq && \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log \
     && mkdir -p /usr/local/dotfiles && \
-    mkdir /root/.gnupg && gpg  --no-default-keyring --keyring /usr/share/keyrings/archive-keyring.gpg --fetch-keys https://dl.yarnpkg.com/debian/pubkey.gpg && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    mkdir /root/.gnupg && chmod 700 /root/.gnupg && \
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --no-default-keyring --keyring /usr/share/keyrings/archive-keyring.gpg --import - && \
+    curl -sL   https://deb.nodesource.com/setup_16.x    | bash - && \
     echo "deb [signed-by=/usr/share/keyrings/archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 WORKDIR /usr/src/redmine
