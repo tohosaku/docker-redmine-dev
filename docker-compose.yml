@@ -2,8 +2,8 @@ services:
   redmine:
     hostname: redmine
     volumes:
-      - ../redmine:/usr/src/redmine
-      - ../plugins:/usr/src/redmine/plugins
+      - ../redmine:/workspace
+      - ../plugins:/workspace/plugins
       - bundle-data:/usr/local/bundle
       - ./.cache:/home/user/.cache
     environment:
