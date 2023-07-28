@@ -19,22 +19,14 @@ RUN apt-get update -qq && \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && truncate -s 0 /var/log/*log \
-    && mkdir -p /usr/local/dotfiles && \
-    mkdir /root/.gnupg && chmod 700 /root/.gnupg && \
-    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --no-default-keyring --keyring /usr/share/keyrings/archive-keyring.gpg --import - && \
-    curl -sL   https://deb.nodesource.com/setup_16.x    | bash - && \
-    echo "deb [signed-by=/usr/share/keyrings/archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+  && truncate -s 0 /var/log/*log
 
 WORKDIR /workspace
 
 COPY ./dotfiles /usr/local/dotfiles
 
 ARG LOCAL_UID
-RUN apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    nodejs yarn && \
-    apt-get clean \
+RUN apt-get update -qq && apt-get clean \
   && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log \
