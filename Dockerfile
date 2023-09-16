@@ -24,6 +24,7 @@ RUN apt-get update -qq && \
 WORKDIR /workspace
 
 COPY ./dotfiles /usr/local/dotfiles
+COPY ./policy.xml /etc/ImageMagick-6/
 
 ARG LOCAL_UID
 RUN apt-get update -qq && apt-get clean \
