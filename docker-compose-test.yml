@@ -8,7 +8,8 @@ services:
     depends_on:
       - chrome
   chrome:
-    image: selenium/standalone-chrome-debug:latest
+    image: selenium/standalone-chrome:4.12.1-20230912
+    shm_size: 2g
     volumes:
       - ../redmine/tmp/downloads:/home/seluser/Downloads
     ports:
