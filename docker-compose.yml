@@ -4,6 +4,7 @@ services:
     volumes:
       - ../redmine:/workspace
       - ../plugins:/workspace/plugins
+      - ../gems:/workspace/gems
       - bundle-data:/usr/local/bundle
       - ./.cache:/home/user/.cache
     environment:
