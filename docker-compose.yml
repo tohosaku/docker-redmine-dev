@@ -10,6 +10,7 @@ services:
     environment:
       RAILS_ENV: ${RAILS_ENV:-development}
       BINDING: 0.0.0.0
+      TERM: xterm-256color
     command: /bin/sh -c "while sleep 1000; do :; done"
     depends_on:
       - db
