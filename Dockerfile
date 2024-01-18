@@ -1,4 +1,4 @@
-FROM ruby:3.3.0-preview2-slim-bookworm
+FROM ruby:3.3.0-slim-bookworm
 
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
