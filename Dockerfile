@@ -42,7 +42,7 @@ ENV LANG=C.UTF-8 \
 
 USER user
 
-RUN rm -rf ~/.dotfiles && https://github.com/tohosaku/dotfiles.git ~/.dotfiles && sh ~/.dotfiles/init.sh && \
+RUN rm -rf ~/.dotfiles && git clone https://github.com/tohosaku/dotfiles.git ~/.dotfiles && sh ~/.dotfiles/init.sh && \
     rm -rf ~/bin && mkdir ~/bin && cd ~/bin && \
     curl -LO https://github.com/arl/gitmux/releases/download/v0.7.10/gitmux_0.7.10_linux_amd64.tar.gz && tar zxvf gitmux_0.7.10_linux_amd64.tar.gz && \
     mkdir ~/.cache && \
