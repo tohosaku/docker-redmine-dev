@@ -24,6 +24,7 @@ RUN apt-get update -qq && \
 WORKDIR /workspace
 
 COPY ./policy.xml /etc/ImageMagick-6/
+COPY ./redmine.sh /usr/local/bin/redmine.sh
 
 ARG LOCAL_UID
 RUN apt-get update -qq && apt-get clean \
@@ -33,8 +34,7 @@ RUN apt-get update -qq && apt-get clean \
      chmod +x /usr/local/bin/redmine.sh && useradd -u $LOCAL_UID -m user && \
     curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb && \
     dpkg -i ripgrep_13.0.0_amd64.deb && \
-    chown -R user:user /home/user && \
-    cp /usr/local/dotfiles/redmine.sh /usr/local/bin/ && chmod 755 /usr/local/bin/redmine.sh
+    chown -R user:user /home/user
 
 ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \
