@@ -1,5 +1,4 @@
 packages = %w(
-  gnupg
   file
   curl
   git
@@ -24,4 +23,35 @@ packages.each do |pkg|
 end
 
 remote_file '/etc/ImageMagick-6/policy.xml'
-remote_file '/usr/local/bin/redmine.sh'
+remote_file '/usr/local/bin/redmine.sh' do
+  mode '755'
+end
+
+u = node['user']
+
+group u.name do
+  gid u.gid
+end
+
+user u.name do
+  uid u.uid
+  gid u.gid
+  home "/home/#{u.name}"
+  shell '/bin/bash'
+end
+
+directory "/home/#{u.name}" do
+  owner u.name
+  mode '755'
+end
+
+RIPGREP = 'https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb'
+
+http_request '/tmp/ripgrep_13.0.0_amd64.deb' do
+  url RIPGREP
+  block -> do
+    execute 'dpkg -i /tmp/ripgrep_13.0.0_amd64.deb'
+  end
+end
+
+execute 'apt-get clean && rm -rf /var/cache/apt/archives/* && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && truncate -s 0 /var/log/*log'
