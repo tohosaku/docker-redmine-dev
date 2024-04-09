@@ -54,4 +54,14 @@ http_request '/tmp/ripgrep_13.0.0_amd64.deb' do
   end
 end
 
+GITMUX = 'https://github.com/arl/gitmux/releases/download/v0.7.10/gitmux_0.7.10_linux_amd64.tar.gz'
+
+http_request '/usr/local/bin/gitmux_0.7.10_linux_amd64.tar.gz' do
+  url GITMUX
+  block -> do
+    cwd '/usr/local/bin/'
+    execute 'tar zxvf /usr/local/bin/gitmux_0.7.10_linux_amd64.tar.gz'
+  end
+end
+
 execute 'apt-get clean && rm -rf /var/cache/apt/archives/* && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && truncate -s 0 /var/log/*log'
