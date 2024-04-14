@@ -38,22 +38,6 @@ $ ./dc.sh up -d
 
 6. Open localhost:3000 and verify that redmine is running.
 
-## System test
-
-By applying the included "remote_test.patch" to redmine, we can test the system using the selenium/standalone-chrome-debug image.
-
-Applying the patch
-```
-$ cd ../redmine
-$ patch -p1 < ../redmine-docker-wsl2/remote_test.patch
-```
-
-Run the test
-```
-$ . /dc_test.sh up -d
-$ . /dc_test.sh run --rm redmine bin/rake test:system
-```
-
 ## Compiling assets
 
 You can also compile assets for the production environment.

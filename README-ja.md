@@ -38,22 +38,6 @@ $ ./dc.sh up -d
 
 6. localhost:3000 を開いて redmine が起動しているとを確認します。
 
-## システムテスト
-
-同梱されている remote_test.patch を redmine に適用することで、selenium/standalone-chrome-debug イメージを利用したシステムテストができるようになります。
-
-パッチの適用
-```
-$ cd ../redmine
-$ patch -p1 < ../redmine-docker-wsl2/remote_test.patch
-```
-
-テストの実行
-```
-$ ./dc_test.sh up -d
-$ ./dc_test.sh run --rm redmine bin/rake test:system
-```
-
 ## アセットのコンパイル
 
 production 環境のために、アセットをコンパイルすることもできます。
