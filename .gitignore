@@ -3,3 +3,4 @@ database.yml
 .*.env
 *.dump
 .cache
+mitamae/node.yml

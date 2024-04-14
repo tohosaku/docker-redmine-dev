@@ -16,10 +16,7 @@ services:
       - db
     ports:
       - 3000:3000
-    build:
-      context: .
-      args:
-        LOCAL_UID: ${LOCAL_UID}
+    build: .
   db:
     image: postgres:13.3
     hostname: postgres

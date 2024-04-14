@@ -4,13 +4,11 @@ ADD https://github.com/itamae-kitchen/mitamae/releases/download/v1.14.1/mitamae-
 RUN chmod +x /usr/local/bin/mitamae
 
 COPY ./mitamae /usr/local/share/mitamae
-RUN /usr/local/bin/mitamae local -j /usr/local/share/mitamae/node.json /usr/local/share/mitamae/cookbooks/system/default.rb
+RUN /usr/local/bin/mitamae local -y /usr/local/share/mitamae/node.yml /usr/local/share/mitamae/cookbooks/system/default.rb
 
 WORKDIR /workspace
 
-ENV LANG=C.UTF-8 \
-  BUNDLE_JOBS=4 \
-  BUNDLE_RETRY=3
+ENV LANG=C.UTF-8
 
 USER user
 
