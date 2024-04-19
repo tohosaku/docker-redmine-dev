@@ -1,4 +1,4 @@
 user:
   name: user
-  uid: $(id -u)
-  gid: $(id -g)
+  uid: ${LOCAL_UID}
+  gid: ${LOCAL_GID}

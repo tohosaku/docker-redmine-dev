@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export LOCAL_UID=$(id -u)
+export LOCAL_GID=$(id -g)
+
+if [ "$#" -eq 0 ]; then
+  docker compose exec -it redmine tmux
+else
+  cat mitamae/node_tmpl.yml| env $(cat .env) envsubst > mitamae/node.yml
+  cat Dockerfile.tmpl      | env $(cat .env) envsubst > Dockerfile
+  docker compose $*
+fi

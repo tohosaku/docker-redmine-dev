@@ -1,6 +1,6 @@
-FROM ruby:3.3.0-slim-bookworm
+FROM ${IMAGE}
 
-ADD https://github.com/itamae-kitchen/mitamae/releases/download/v1.14.1/mitamae-x86_64-linux /usr/local/bin/mitamae
+ADD https://github.com/itamae-kitchen/mitamae/releases/download/v${MITAMAE_VERSION}/mitamae-${MITAMAE_ARCH} /usr/local/bin/mitamae
 RUN chmod +x /usr/local/bin/mitamae
 
 COPY ./mitamae /usr/local/share/mitamae
@@ -10,6 +10,6 @@ WORKDIR /workspace
 
 ENV LANG=C.UTF-8
 
-USER user
+USER ${USER}
 
 RUN /usr/local/bin/mitamae local /usr/local/share/mitamae/cookbooks/user/default.rb

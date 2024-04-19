@@ -4,3 +4,4 @@ database.yml
 *.dump
 .cache
 mitamae/node.yml
+Dockerfile
