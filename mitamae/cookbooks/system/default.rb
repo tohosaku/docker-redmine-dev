@@ -45,21 +45,23 @@ directory "/home/#{u.name}" do
   mode '755'
 end
 
-RIPGREP = 'https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb'
+RIPGREP     = "ripgrep_#{node['ripgrep']['version']}_#{node['ripgrep']['arch']}.deb"
+RIPGREP_URL = "https://github.com/BurntSushi/ripgrep/releases/download/#{node['ripgrep']['version']}/#{RIPGREP}"
 
-http_request '/tmp/ripgrep_13.0.0_amd64.deb' do
-  url RIPGREP
+http_request "/tmp/#{RIPGREP}" do
+  url RIPGREP_URL
 end
 
-execute 'dpkg -i /tmp/ripgrep_13.0.0_amd64.deb'
+execute "dpkg -i /tmp/#{RIPGREP}"
 
-GITMUX = 'https://github.com/arl/gitmux/releases/download/v0.7.10/gitmux_0.7.10_linux_amd64.tar.gz'
+GITMUX     = "gitmux_#{node['gitmux']['version']}_#{node['gitmux']['arch']}.tar.gz"
+GITMUX_URL = "https://github.com/arl/gitmux/releases/download/v#{node['gitmux']['version']}/#{GITMUX}"
 
-http_request '/usr/local/bin/gitmux_0.7.10_linux_amd64.tar.gz' do
-  url GITMUX
+http_request "/usr/local/bin/#{GITMUX}" do
+  url GITMUX_URL
 end
 
-execute 'tar zxvf /usr/local/bin/gitmux_0.7.10_linux_amd64.tar.gz' do
+execute "tar zxvf /usr/local/bin/#{GITMUX}" do
   cwd '/usr/local/bin'
 end
 
